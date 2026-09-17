@@ -109,7 +109,28 @@ The server uses stdio transport and exposes these tools:
 - `search_incidents`
 - `create_incident`
 
-To connect it to Claude Desktop, copy `backend/mcp/claude_desktop_config.example.json` to Claude Desktop's configuration file and update the project path if necessary. Do not commit a personal Claude Desktop configuration containing local paths or secrets.
+## Add MCP to Claude Desktop
+
+1. Open the Claude Desktop config file:
+   - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+2. Copy the example settings from `backend/mcp/claude_desktop_config.example.json`.
+3. Replace the placeholder paths with your actual local paths to the project.
+4. Save the file and restart Claude Desktop.
+
+Example:
+
+```json
+{
+  "mcpServers": {
+    "incident-management": {
+      "command": "C:\\path\\to\\incident-app\\backend\\.venv\\Scripts\\python.exe",
+      "args": ["C:\\path\\to\\incident-app\\backend\\mcp\\mcp_server.py"]
+    }
+  }
+}
+```
+
+Do not commit a personal Claude Desktop configuration containing local paths or secrets.
 
 ## API Endpoints
 
@@ -123,21 +144,6 @@ To connect it to Claude Desktop, copy `backend/mcp/claude_desktop_config.example
 
 List filters are optional query parameters: `severity`, `team`, `status`, and `q`.
 
-## GitHub Publishing
-
-Create a **public** repository named `Incident-Management` on GitHub, then run these commands from the project root:
-
-```powershell
-git init
-git add .
-git status
-git commit -m "Initial incident management application"
-git branch -M main
-git remote add origin https://github.com/<your-github-username>/Incident-Management.git
-git push -u origin main
-```
-
-The `.gitignore` excludes virtual environments, installed packages, local SQLite databases, build output, caches, logs, and environment files. The backend application source, MCP server, dependency manifests, and frontend source remain available to GitHub.
 
 ## Architecture
 
